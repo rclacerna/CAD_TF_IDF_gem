@@ -1,20 +1,29 @@
-class Tf_Idf_hash
+#  TF-IDF of files
+#  Cloud Application Development module
+#  Author: Ryan Lacerna
 
-  def idf(data,doc_num)
-    @data = data
-    @word_n_count= []
-    @data.each do |hash|
-       hash[:value]
-      @word_n_count << hash[:value]
+
+class Tf_idf_hash
+  def initialize(files, doc_num)
+    @file = files
+    @doc_num = doc_num
+  end
+
+  # calculates the idf, idf gives high weights to rare words in the collection of files
+  def idf
+    word_n_count= []
+    @file.each do |hash|
+      hash[:value]
+      word_n_count << hash[:value]
       val = []
       my_arr = []
-      @word_n_count.flat_map(&:entries).group_by(&:first).map{|k,v|
+      word_n_count.flat_map(&:entries).group_by(&:first).map{|k,v|
         val << [k, v.map(&:last)]
         values = Hash[val]
         values.each do |key, value|                       # gets the key and value in the hash
           @key = key
-          @value = value.inject {|sum,n| sum + n}         # add all the count values together
-          @idf = Math.log2(doc_num/@value).round(4)       # IDF formula
+          value = value.inject {|sum,n| sum + n}         # add all the count values together
+          @idf = Math.log2(@doc_num/value).round(4)      # IDF formula
         end
         my_arr << @key << @idf                            # push key and idf values to arr
         @idf = Hash[*my_arr]                              # turns array to a hash table
@@ -24,9 +33,9 @@ class Tf_Idf_hash
   end
 
 # Term frequency weights, using the term count, we use the tf formula to get the weights
-  def tf(file)
-    @tf_arr = []
-    file.each do |hash|
+  def tf
+    tf_arr = []
+    @file.each do |hash|
       @word_n_count= []
       @doc_name = hash[:key]
       hash = hash[:value]                                  # :key => document1.pdf, :value=>{"los"=>1, "angeles"=>1, "times"=>1}
@@ -35,8 +44,8 @@ class Tf_Idf_hash
         @tf = Math.log10(counts[1] +1.0).round(3)          # TF weight formula
         @word_n_count << @keys << @tf                      # puts term keys and TF values
       end
-      @tf_arr << @doc_name << Hash[*@word_n_count]
-      @tf = Hash[*@tf_arr]                                 # turn @tf_arr to a hash table
+      tf_arr << @doc_name << Hash[*@word_n_count]
+      @tf = Hash[*tf_arr]                                 # turn @tf_arr to a hash table
     end
     @tf
   end
@@ -75,4 +84,21 @@ class Tf_Idf_hash
   end
 end
 
+=begin
+#------------------Inputs---------------------------------
+file = [{:key=>"Document1.pdf", :value=>{"new"=>1, "york"=>1, "times"=>1}},
+     {:key=>"Document2.pdf", :value=>{"new"=>1, "york"=>1, "post"=>1}},
+     {:key=>"Document3.pdf", :value=>{"los"=>1, "angeles"=>1, "times"=>1}}]
+N = 3
+#------------------------------------------------------------------
 
+myclass = Tf_idf_hash.new(file, N)
+my_tf = myclass.tf
+my_idf = myclass.idf
+my_tf_idf = myclass.tf_idf(my_tf, my_idf)
+
+p '---------'
+p " TF : #{my_tf}"
+p  "IDF : #{my_idf}"
+p "TF-IDF : #{my_tf_idf}"
+=end
