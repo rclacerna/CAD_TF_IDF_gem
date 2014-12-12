@@ -53,7 +53,6 @@ class Tf_idf_hash
 # TF * IDF, we multiply the IDF with each TF values in every doc. We also get the Document length here.
   def tf_idf(tf, idf)
     tf_idf_hash =[]
-    document_len_arr = []
     tf.each do |docname, value|
       arr = []
       new_arr = []
@@ -66,19 +65,13 @@ class Tf_idf_hash
         val.each do |key, values|                        # gets keys and values
           @key = key
           @tf_idf_values = values.inject{|tf, idf| tf *idf}    # multiplies tf with idf in all words and docs
-          myarr << (@tf_idf_values**2)                         # DOCUMENT LENGTH get every value and then power^2
         end
-        doc_len = myarr.inject{|sum, n| sum + n}        # DOCUMENT LENGTH sum all values for Doc length
-        @length_value =  Math.sqrt(doc_len).round(3)    # DOCUMENT LENGTH sqrt the sum
         total_tf_idf << @key << @tf_idf_values          # shows TF IDF and words associated e.g ["new", 0.0, "york", 0.0, "post", 0.756045, "times", 0.0, "los", 1.585, "angeles", 1.585]
         @answer = Hash[*total_tf_idf]                   # converts the array to hash of key values pairs
       }
-      document_len_arr << docname << @length_value      # DOCUMENT LENGTH....add document name with document length
-      @document_length = Hash[*document_len_arr]        # DOCUMENT LENGTH ..turn array to hash
       tf_idf_hash << docname << @answer                 # we add the file name as key for the value : {"los"=>1.23313, "angeles"=>0.0, "times"=>0.0, "new"=>0.0, "york"=>0.0, "post"=>1.585}
       @tf_idf = Hash[*tf_idf_hash]                      # converts array to hash
     end
-    @document_length                                    #DOCUMENT LENGTH output
     @tf_idf                                             # {"Document1.pdf"=>{"new"=>0.0, "york"=>0.0, "times"=>0.0, "post"=>1.585, "los"=>1.585, "angeles"=>1.585},
 #e.g output "Document2.pdf"=>{"new"=>0.0, "york"=>0.0, "post"=>0.756045, "times"=>0.0, "los"=>1.585, "angeles"=>1.585}, "Document3.pdf"=>{"los"=>1.23313, "angeles"=>0.0, "times"=>0.0, "new"=>0.0, "york"=>0.0, "post"=>1.585}}
   end
@@ -87,8 +80,8 @@ end
 =begin
 #------------------Inputs---------------------------------
 file = [{:key=>"Document1.pdf", :value=>{"new"=>1, "york"=>1, "times"=>1}},
-     {:key=>"Document2.pdf", :value=>{"new"=>1, "york"=>1, "post"=>1}},
-     {:key=>"Document3.pdf", :value=>{"los"=>1, "angeles"=>1, "times"=>1}}]
+        {:key=>"Document2.pdf", :value=>{"new"=>1, "york"=>1, "post"=>1}},
+        {:key=>"Document3.pdf", :value=>{"los"=>1, "angeles"=>1, "times"=>1}}]
 N = 3
 #------------------------------------------------------------------
 
@@ -96,9 +89,10 @@ myclass = Tf_idf_hash.new(file, N)
 my_tf = myclass.tf
 my_idf = myclass.idf
 my_tf_idf = myclass.tf_idf(my_tf, my_idf)
-
+#my_doc_length = myclass.doc_length(my_tf_idf)
 p '---------'
 p " TF : #{my_tf}"
 p  "IDF : #{my_idf}"
 p "TF-IDF : #{my_tf_idf}"
 =end
+

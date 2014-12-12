@@ -38,7 +38,9 @@ require 'tf_idf_hash'
     tfidf_output = {"Document1.pdf"=>{"new"=>0.0, "york"=>0.0, "times"=>0.0, "post"=>1.585, "los"=>1.585, "angeles"=>1.585},
                      "Document2.pdf"=>{"new"=>0.0, "york"=>0.0, "post"=>0.477085, "times"=>0.0, "los"=>1.585, "angeles"=>1.585},
                      "Document3.pdf"=>{"los"=>0.477085, "angeles"=>0.477085, "times"=>0.0, "new"=>0.0, "york"=>0.0, "post"=>1.585}}
+
     idf_output = {"new"=>0.0, "york"=>0.0, "times"=>0.0, "post"=>1.585, "los"=>1.585, "angeles"=>1.585}
+
     tf_output = {"Document1.pdf"=>{"new"=>0.301, "york"=>0.301, "times"=>0.301},
                   "Document2.pdf"=>{"new"=>0.301, "york"=>0.301, "post"=>0.301},
                   "Document3.pdf"=>{"los"=>0.301, "angeles"=>0.301, "times"=>0.301}}
