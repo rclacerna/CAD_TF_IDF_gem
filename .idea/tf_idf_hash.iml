@@ -38,7 +38,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="minitest (v5.4.3, ruby-2.0.0-p481 (1)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="minitest (v5.5.0, ruby-2.0.0-p481 (1)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v10.4.2, ruby-2.0.0-p481 (1)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tf_idf_hash (v0.0.1, ruby-2.0.0-p481 (1)) [gem]" level="application" />
   </component>
