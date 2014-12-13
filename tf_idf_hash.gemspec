@@ -6,6 +6,6 @@ s.summary = "Calculates tf-idf weights of hash tables"
 s.description = "returns the wieghts of tf, idf and tf-idf"
 s.authors = ["Ryan"]
 s.email = 'rclacerna@gmail.com'
-s.homepage = 'https://github.com/rclacerna/tf_idf_hash_gem.git'
+s.homepage = 'http://github.com/rclacerna/tf_idf_hash_gem.git'
 s.files = ["lib/tf_idf_hash.rb"]
 end
